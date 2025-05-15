@@ -16,8 +16,8 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker
+      - name: Build and Start Docker Containers
         run: docker-compose up --build -d
 
-      - name: Test
+      - name: Test the App
         run: curl http://localhost:5000
