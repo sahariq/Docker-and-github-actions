@@ -3,18 +3,21 @@ name: CLI workflow
 on:
   push:
     branches:
-    - main
-  jobs:
-    build:
-      runs-on: windows-latest
+      - main
 
-      steps:
-      - name: Checkout Code 
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
         uses: actions/checkout@v3
+
       - name: Set up Docker Buildx
-        uses: docker/setup-builx-action@v3
+        uses: docker/setup-buildx-action@v3
+
       - name: Build Docker
-        uses: docker-compose up --build
+        run: docker-compose up --build -d
 
       - name: Test
-        uses: curl https://localhost:5000
+        run: curl http://localhost:5000
