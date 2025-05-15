@@ -1,0 +1,23 @@
+name: CLI workflow
+
+on:
+  push:
+    branches:
+    - main
+  jobs:
+    build:
+      runs-on: windows-latest
+
+      steps:
+      - name: Checkout Code 
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-builx-action@v3
+      - name: Build Docker
+        uses: docker-compose up --build
+      -name: wait for service to be ready
+        run: |
+          echo "Waiting for the service to be ready..."
+          sleep 10
+      - name: Test
+        uses: curl https://localhost:5000
